@@ -17,7 +17,7 @@ public class Main {
 
         Runnable logic = () -> {
             synchronized (sizeToFreq) {
-                rCount(sizeToFreq);
+                rCount();
                 sizeToFreq.notify();
             }
         };
@@ -62,7 +62,7 @@ public class Main {
         return route.toString();
     }
 
-    public static synchronized Integer rCount(Map map) {
+    public static Integer rCount() {
         int count = 1;
         int frequency = 0;
         String path = generateRoute("RLRFR", 100);
@@ -72,7 +72,7 @@ public class Main {
             }
         }
         frequency = 100 % count;
-        map.put(frequency, count);
+        sizeToFreq.put(frequency, count);
 
         return count;
     }
@@ -86,7 +86,7 @@ public class Main {
 
     }
 
-    public static synchronized void showMax(Map<Integer, Integer> map) {
+    public static void showMax(Map<Integer, Integer> map) {
         Map.Entry<Integer, Integer> maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue());
 
         System.out.println("Самое частое количество повторений " + maxEntry.getKey() + " (встретилось " + maxEntry.getValue() + ")");
