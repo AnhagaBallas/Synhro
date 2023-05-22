@@ -16,7 +16,7 @@ public class Main {
         }
 
         Runnable logic = () -> {
-            rCount(sizeToFreq);
+            rCount();
         };
         for (int i = 0; i < 1000; i++) {
             threadPool.execute(logic);
@@ -37,7 +37,7 @@ public class Main {
         return route.toString();
     }
 
-    public static synchronized Integer rCount(Map map) {
+    public static Integer rCount() {
         int count = 1;
         int frequency = 0;
         String path = generateRoute("RLRFR", 100);
@@ -47,7 +47,7 @@ public class Main {
             }
         }
         frequency = 100 % count;
-        map.put(frequency, count);
+        sizeToFreq.put(frequency, count);
 
         return count;
     }
