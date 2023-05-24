@@ -16,14 +16,12 @@ public class Main {
         }
 
         Runnable logic = () -> {
-            synchronized (sizeToFreq) {
-                rCount();
-            }
+            rCount();
         };
         for (int i = 0; i < 1000; i++) {
             threadPool.execute(logic);
         }
-        
+
 
         threadPool.shutdown();
         showList(sizeToFreq);
@@ -50,7 +48,9 @@ public class Main {
             }
         }
         frequency = 100 % count;
-        sizeToFreq.put(frequency, count);
+        synchronized (sizeToFreq) {
+            sizeToFreq.put(frequency, count);
+        }
 
         return count;
     }
